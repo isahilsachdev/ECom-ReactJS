@@ -1,0 +1,12 @@
+.navbar-container {
+  background: beige;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.navbar-item {
+  margin: 30px 100px;
+  padding: 10px 20px;
+}
