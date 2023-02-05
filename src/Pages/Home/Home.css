@@ -1,0 +1,17 @@
+.product-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.product {
+  padding: 20px;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  margin: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.product-img {
+  height: 350px;
+  width: 350px;
+}
