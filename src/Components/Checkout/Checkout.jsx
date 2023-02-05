@@ -3,7 +3,7 @@ import axiosApiCall from '../../Assets/axiosApiCall';
 import './Checkout.css';
 
 const Checkout = ({items, clearCart}) => {
-  const [totalOrder, setTotalOrder] = useState("0");
+  const [totalOrder, setTotalOrder] = useState(null);
   const [couponCode, setCouponCode] = useState("")
   const [couponMessge, setCouponMessge] = useState("");
   const [totalAmount, setTotalAmount] = useState(null)
@@ -16,18 +16,18 @@ const Checkout = ({items, clearCart}) => {
         const {count} = res.data;
         setTotalOrder(count);
       }
-    ).catch(err => {
-      console.error(err, "unable to fetch orders")
-    })
-  }, [])
+      ).catch(err => {
+        console.error(err, "unable to fetch orders")
+      })
+      handleGenerateCoupon()
+    }, [])
   
   useEffect(() => {
-    handleGenerateCoupon()
     handleCheckoutAmount(items)
   }, [totalOrder])
 
   const handleGenerateCoupon = () => {
-    if (totalOrder%3 === 0) {
+    if (totalOrder && totalOrder%3 === 0) {
       console.log("generate a coupon", totalOrder)
       axiosApiCall("coupon", "get", null).then(res => {
           const {coupon_code} = res.data.coupon_code;
@@ -89,7 +89,7 @@ const Checkout = ({items, clearCart}) => {
 
   return (
     <div>
-      <h5>Total Order Completed - {totalOrder}</h5>
+      {totalOrder && <h5>Total Order Completed - {totalOrder}</h5>}
       <div className="coupon-container">
         {
           couponMessge && (
@@ -98,7 +98,7 @@ const Checkout = ({items, clearCart}) => {
             </p>
           )
         }
-        {totalOrder%3 === 0 && <button disabled={discountedAmount} onClick={handleApplyCoupon}>Apply Coupon</button>}
+        {totalOrder && totalOrder%3 === 0 && items?.length && <button disabled={discountedAmount} onClick={handleApplyCoupon}>Apply Coupon</button>}
         {
           discountedAmount && totalAmount && (
             <div>
