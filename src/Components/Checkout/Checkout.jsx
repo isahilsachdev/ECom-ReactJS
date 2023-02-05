@@ -19,6 +19,7 @@ const Checkout = ({items, clearCart}) => {
       ).catch(err => {
         console.error(err, "unable to fetch orders")
       })
+      // generating coupon after fetching orders
       handleGenerateCoupon()
     }, [])
   
@@ -28,7 +29,6 @@ const Checkout = ({items, clearCart}) => {
 
   const handleGenerateCoupon = () => {
     if (totalOrder && totalOrder%3 === 0) {
-      console.log("generate a coupon", totalOrder)
       axiosApiCall("coupon", "get", null).then(res => {
           const {coupon_code} = res.data.coupon_code;
           setCouponCode(coupon_code);
@@ -46,12 +46,14 @@ const Checkout = ({items, clearCart}) => {
   const handleCheckoutAmount = (items) => {
     let total = 0;
     items.forEach(item => {
+      // calculating total amount
         total += Number(item.price)
     })
     setTotalAmount(parseInt(total));
   }
 
   const handleApplyCoupon = () => {
+    // calculating discounted amount
     const newDiscountedAmount = totalAmount - (totalAmount / 10);
     setDiscountedAmount(parseInt(newDiscountedAmount));
   }
@@ -80,6 +82,7 @@ const Checkout = ({items, clearCart}) => {
         console.error(err, "unable to update order count")
       })
 
+      // clearing cart after checkout
       clearCart()
     }).catch(err => {
       setCheckoutMessage('Coupon code is invalid.')
@@ -102,7 +105,7 @@ const Checkout = ({items, clearCart}) => {
         {
           discountedAmount && totalAmount && (
             <div>
-              <h3>New order amount - <span className="strike-text">{totalAmount}</span> <span>{discountedAmount}</span></h3>
+              <h3>New order amount with 10% off : <span className="strike-text">{totalAmount}</span> <span>{discountedAmount}</span></h3>
             </div>
           )
         }
