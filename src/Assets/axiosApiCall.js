@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = "http://localhost:5001/"
+const baseURL = "https://ecommerce-nodejs-cqng69ehx-isahilsachdev.vercel.app/"
 
 // util to make axios api calls
 function axiosApiCall(url,method,data){
