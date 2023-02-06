@@ -19,27 +19,30 @@ const Checkout = ({items, clearCart}) => {
       ).catch(err => {
         console.error(err, "unable to fetch orders")
       })
-      // generating coupon after fetching orders
-      handleGenerateCoupon()
     }, [])
-  
-  useEffect(() => {
+    
+    useEffect(() => {
+    // generating coupon whenever order changes
+    handleGenerateCoupon()
     handleCheckoutAmount(items)
   }, [totalOrder])
 
   const handleGenerateCoupon = () => {
-    if (totalOrder && totalOrder%3 === 0) {
-      axiosApiCall("coupon", "get", null).then(res => {
-          const {coupon_code} = res.data.coupon_code;
-          setCouponCode(coupon_code);
-          setCouponMessge(`Yay, you have a coupon - ${coupon_code}`);
-        }
-      ).catch(err => {
-        console.error(err, "unable to fetch coupon")
-      })
-    } else {
-      console.log("unable to generate a coupon")
-      setCouponMessge("Sorry, No coupon codes available as we provide a 10% discount only on every 3rd order.")
+    if (totalOrder) {
+      if ((totalOrder +1)%3 === 0) {
+        console.log("generating a coupon")
+        axiosApiCall("coupon", "get", null).then(res => {
+            const {coupon_code} = res.data.coupon_code;
+            setCouponCode(coupon_code);
+            setCouponMessge(`Yay, you have a coupon - ${coupon_code}`);
+          }
+        ).catch(err => {
+          console.error(err, "unable to fetch coupon")
+        })
+      }else {
+        console.log("unable to generate a coupon")
+        setCouponMessge("Sorry, No coupon codes available as we provide a 10% discount only on every 3rd order.")
+      }
     }
   }
 
@@ -92,7 +95,7 @@ const Checkout = ({items, clearCart}) => {
 
   return (
     <div>
-      {totalOrder && <h5>Total Order Completed - {totalOrder}</h5>}
+      {totalOrder && <h5>Order Number - {totalOrder + 1}</h5>}
       <div className="coupon-container">
         {
           couponMessge && (
@@ -101,7 +104,7 @@ const Checkout = ({items, clearCart}) => {
             </p>
           )
         }
-        {totalOrder && totalOrder%3 === 0 && items?.length && <button disabled={discountedAmount} onClick={handleApplyCoupon}>Apply Coupon</button>}
+        {totalOrder && (totalOrder +1)%3 === 0 && items?.length && <button disabled={discountedAmount} onClick={handleApplyCoupon}>Apply Coupon</button>}
         {
           discountedAmount && totalAmount && (
             <div>
