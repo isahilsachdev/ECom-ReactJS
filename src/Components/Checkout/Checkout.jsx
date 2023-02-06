@@ -5,7 +5,7 @@ import './Checkout.css';
 const Checkout = ({items, clearCart}) => {
   const [totalOrder, setTotalOrder] = useState(null);
   const [couponCode, setCouponCode] = useState("")
-  const [couponMessge, setCouponMessge] = useState("");
+  const [couponMessge, setCouponMessge] = useState("Sorry, No coupon codes available as we provide a 10% discount only on every 3rd order.");
   const [totalAmount, setTotalAmount] = useState(null)
   const [discountedAmount, setDiscountedAmount] = useState(null)
   const [checkoutMessage, setCheckoutMessage] = useState("")
@@ -95,7 +95,7 @@ const Checkout = ({items, clearCart}) => {
 
   return (
     <div>
-      {totalOrder && <h5>Order Number - {totalOrder + 1}</h5>}
+      <h5>Order Number - {totalOrder + 1}</h5>
       <div className="coupon-container">
         {
           couponMessge && (
@@ -104,9 +104,9 @@ const Checkout = ({items, clearCart}) => {
             </p>
           )
         }
-        {totalOrder && (totalOrder +1)%3 === 0 && items?.length && <button disabled={discountedAmount} onClick={handleApplyCoupon}>Apply Coupon</button>}
+        {totalOrder > 0 && (totalOrder +1)%3 === 0 && items.length > 0 && <button disabled={discountedAmount} onClick={handleApplyCoupon}>Apply Coupon</button>}
         {
-          discountedAmount && totalAmount && (
+          discountedAmount > 0 && totalAmount > 0 && (
             <div>
               <h3>New order amount with 10% off : <span className="strike-text">{totalAmount}</span> <span>{discountedAmount}</span></h3>
             </div>
