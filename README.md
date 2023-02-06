@@ -1,4 +1,4 @@
-## live url 
+## Live URL
 https://ecom-nodejs.netlify.app/
 
 ## Product description
@@ -39,6 +39,7 @@ You may also see any lint errors in the console.
 * Would have added loading and a loader.
 * Better management of tools or Implementation of state management tools if needed.
 * Would have added a checkout experience using test payments with some tools like Stripe.
-
+* Delete option for removing items from cart and Delete All to clear cart
+* User Authencation, SignIn/ SignUp for differentiating users.
 
 
