@@ -12,8 +12,8 @@
 }
 
 .product-img {
-  height: 350px;
-  width: 350px;
+  height: 200px;
+  width: 200px;
 }
 
 .details-container {
@@ -21,9 +21,9 @@
   justify-content: space-around;
 }
 .details-container > div {
-  width: 350px;
-  font-size: 20px;
-  font-weight: 700;
+  width: 200px;
+  font-size: 10;
+  font-weight: 500;
   background-color: lightcoral;
   padding: 20px;
   border: 1px solid lightgray;
