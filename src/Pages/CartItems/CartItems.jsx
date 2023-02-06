@@ -24,7 +24,7 @@ const CartItems = () => {
         }).catch(err => {
           console.error(err, "unable to remove cart items")
         })
-      }, 500)
+      }, 0)
     };
 
     return (
