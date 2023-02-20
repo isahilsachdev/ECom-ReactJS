@@ -1,5 +1,4 @@
-## Live URL
-https://ecom-nodejs.netlify.app/
+
 
 ## Product description
 This project is a demonstration of a simple ecommerce website using reactjs. It consists of 2 page, Home and Cart. User can add items from home page to cart and then can checkout.
